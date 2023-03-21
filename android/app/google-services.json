@@ -29,6 +29,13 @@
             {
               "client_id": "356594832776-b2s7rgs630167pb7js27mrm5gc935pi9.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "356594832776-33hv8ppfmheshms1ncp658e0p1sk8a2m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.finger.fingerprintTest2"
+              }
             }
           ]
         }

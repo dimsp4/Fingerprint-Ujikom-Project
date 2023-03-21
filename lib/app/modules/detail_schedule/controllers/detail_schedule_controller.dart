@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
-import 'package:local_auth/local_auth.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final LocalAuthentication auth = LocalAuthentication();
+class DetailScheduleController extends GetxController {
+  //TODO: Implement DetailScheduleController
 
   final count = 0.obs;
   @override
