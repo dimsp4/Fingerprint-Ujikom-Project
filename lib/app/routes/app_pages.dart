@@ -48,7 +48,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME_SISWA,
-      page: () => const HomeSiswaView(),
+      page: () => HomeSiswaView(),
       binding: HomeSiswaBinding(),
     ),
     GetPage(

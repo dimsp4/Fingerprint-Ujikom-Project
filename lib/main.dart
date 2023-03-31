@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       init: LoginController(),
       builder: ((controller) {
         return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           title: "Application",
           initialRoute: Routes.SPLASH,
           getPages: AppPages.routes,

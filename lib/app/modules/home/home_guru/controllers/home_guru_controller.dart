@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
@@ -7,8 +8,9 @@ class HomeGuruController extends GetxController {
 
   final count = 0.obs;
   final LocalAuthentication auth = LocalAuthentication();
-  final List<Widget> listSchedule = [];
+
   late int indexSchedule;
+  late QuerySnapshot snap;
 
   @override
   void onInit() {
@@ -27,8 +29,7 @@ class HomeGuruController extends GetxController {
 
   void increment() => count.value++;
 
-  List<Widget> schedule(int index) {
-    indexSchedule = index;
-    return listSchedule;
+  void scheduleFire() async {
+    snap = await FirebaseFirestore.instance.collection('Guru').get();
   }
 }

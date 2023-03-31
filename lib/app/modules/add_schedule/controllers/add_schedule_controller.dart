@@ -11,11 +11,14 @@ class AddScheduleController extends GetxController {
   final count = 0.obs;
   var dateController = TextEditingController(
       text: DateFormat().add_yMMMd().format(DateTime.now()));
+  final List<Widget> listSchedule = [];
   final classController = TextEditingController();
   final schedController = TextEditingController();
   final kodeController = TextEditingController();
+  int length = 0;
+  var snap;
 
-  var listC = Get.put(HomeGuruController());
+  // var listC = Get.put(HomeGuruController());
 
   @override
   void onInit() {
@@ -42,17 +45,31 @@ class AddScheduleController extends GetxController {
   }
 
   Future addSchedule() async {
-    await FirebaseFirestore.instance.collection('Guru').doc('test').update(
+    await FirebaseFirestore.instance.collection('Guru').doc('test').set(
       {
-        kodeController.text: {
-          'date': dateController.text,
-          'kelas': classController.text,
-          'schedule': schedController.text,
+        "classes": {
+          kodeController.text: {
+            'date': dateController.text,
+            'kelas': classController.text,
+            'schedule': schedController.text,
+            'code': kodeController.text,
+            'student': {}
+          },
         },
       },
+      SetOptions(
+        merge: true,
+      ),
     );
 
-    listC.listSchedule.add(
+    snap = await FirebaseFirestore.instance.collection('Guru').get();
+
+    length = (snap.docs.single.data()['classes'] as Map<String, dynamic>)
+        .keys
+        .toList()
+        .length;
+
+    listSchedule.add(
       ScheduleTile(
         date: dateController.text == ""
             ? DateFormat().add_yMMMd().format(DateTime.now())

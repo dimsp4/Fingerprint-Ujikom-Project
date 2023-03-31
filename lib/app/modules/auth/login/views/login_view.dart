@@ -110,8 +110,10 @@ class LoginView extends GetView<LoginController> {
                               if (controller.auth == true) {
                                 if (controller.page == 0) {
                                   Get.offAllNamed(Routes.HOME_GURU);
+                                  controller.page = 0;
                                 } else {
                                   Get.offAllNamed(Routes.HOME_SISWA);
+                                  controller.page = 0;
                                 }
                               }
                             },
