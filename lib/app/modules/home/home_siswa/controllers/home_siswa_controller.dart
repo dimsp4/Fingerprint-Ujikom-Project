@@ -54,7 +54,8 @@ class HomeSiswaController extends GetxController {
     }
   }
 
-  void fingerAuth() async {
+  void fingerAuth(BuildContext context) async {
+    FocusScope.of(context).unfocus();
     valueGuru =
         await FirebaseFirestore.instance.collection('Guru').doc('test').get();
 
@@ -102,6 +103,7 @@ class HomeSiswaController extends GetxController {
                       'kelas': valueSiswa['kelas'],
                       'date': DateFormat().add_yMMMd().format(DateTime.now()),
                       'time': DateFormat("hh:mm a").format(DateTime.now()),
+                      'status': 'Hadir',
                     }
                   }
                 },

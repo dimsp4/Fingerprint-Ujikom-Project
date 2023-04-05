@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fingerprint_test2/app/modules/home/home_siswa/views/fingerprint_page.dart';
 import 'package:fingerprint_test2/app/routes/app_pages.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
@@ -63,8 +64,8 @@ class HomeSiswaView extends GetView<HomeSiswaController> {
                     height: 55,
                     child: ElevatedButton(
                       child: const Icon(Icons.keyboard_arrow_right),
-                      onPressed: () {
-                        controller.fingerAuth();
+                      onPressed: () async {
+                        controller.fingerAuth(context);
                       },
                     ),
                   ),

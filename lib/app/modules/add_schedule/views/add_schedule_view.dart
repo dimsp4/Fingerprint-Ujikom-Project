@@ -1,5 +1,6 @@
 import 'package:fingerprint_test2/app/data/partials/date_pick_field.dart';
 import 'package:fingerprint_test2/app/data/partials/titled_textfield.dart';
+import 'package:fingerprint_test2/app/modules/home/home_guru/controllers/home_guru_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -18,34 +19,37 @@ class AddScheduleView extends GetView<AddScheduleController> {
         shadowColor: Colors.transparent,
         centerTitle: true,
       ),
-      body: Container(
-        margin: const EdgeInsets.only(bottom: 20),
-        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DatePickField(controller: controller.dateController),
-            TitledTextField(
-              controller: controller.schedController,
-              name: 'Schedule',
-              hint: 'Name your schedule...',
-            ),
-            TitledTextField(
-              controller: controller.classController,
-              name: "Class",
-              hint: "Name your class...",
-            ),
-            TitledTextField(
-              controller: controller.kodeController,
-              name: "Code Class",
-              hint: "Make your code...",
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DatePickField(controller: controller.dateController),
+              TitledTextField(
+                controller: controller.schedController,
+                name: 'Schedule',
+                hint: 'Name your schedule...',
+              ),
+              TitledTextField(
+                controller: controller.classController,
+                name: "Class",
+                hint: "Name your class...",
+              ),
+              TitledTextField(
+                controller: controller.kodeController,
+                name: "Code Class",
+                hint: "Make your code...",
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: InkWell(
         onTap: () async {
           await controller.addSchedule();
+          Get.put(HomeGuruController()).update();
           Get.back();
         },
         child: Container(

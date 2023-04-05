@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BottomNavCustom extends StatelessWidget {
-  BottomNavCustom({Key? key}) : super(key: key);
+  const BottomNavCustom({
+    Key? key,
+  }) : super(key: key);
 
   final primaryColor = Colors.blueGrey;
   final secondaryColor = Colors.lightBlue;

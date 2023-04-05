@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:fingerprint_test2/app/data/partials/box_info.dart';
 import 'package:fingerprint_test2/app/data/partials/titled_textfield.dart';
 import 'package:fingerprint_test2/app/modules/add_schedule/controllers/add_schedule_controller.dart';
@@ -24,161 +25,322 @@ class DetailScheduleView extends GetView<DetailScheduleController> {
         shadowColor: Colors.transparent,
         centerTitle: true,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BoxInfo(
-                name: "Date",
-                hint: arg['date'],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BoxInfo(
+              name: "Date",
+              hint: arg['date'],
+            ),
+            BoxInfo(
+              name: "Schedule",
+              hint: arg['schedule'],
+            ),
+            BoxInfo(
+              name: "Class",
+              hint: arg['kelas'],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              width: Get.width,
+              padding: EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.blue, width: 2.5),
               ),
-              BoxInfo(
-                name: "Schedule",
-                hint: arg['schedule'],
-              ),
-              BoxInfo(
-                name: "Class",
-                hint: arg['kelas'],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: Get.width,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.blue, width: 2.5),
-                ),
-                child: Center(
-                  child: Text(
-                    "CODE : ${arg['kode']}",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 25,
-                    ),
+              child: Center(
+                child: Text(
+                  "CODE : ${arg['kode']}",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 25,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Student Attendant',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: arg['studentLength'] != 0
-                    ? ListView.builder(
-                        itemCount: arg['studentLength'],
-                        itemBuilder: ((context, index) {
-                          var nameStudent = arg['listStudent'][
-                              (arg['listStudent'] as Map<String, dynamic>)
-                                  .keys
-                                  .toList()[index]]['name'];
-
-                          var timeStudent = arg['listStudent'][
-                              (arg['listStudent'] as Map<String, dynamic>)
-                                  .keys
-                                  .toList()[index]]['time'];
-
-                          return Card(
-                            margin: EdgeInsets.only(bottom: 20),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: 2,
-                                color: Colors.green,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                nameStudent,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 17),
-                              ),
-                              // subtitle: Text.rich(
-                              //   TextSpan(
-                              //     children: [
-                              //       TextSpan(
-                              //         text: arg['snapStudent']['time'],
-                              //         style: TextStyle(
-                              //           color: Colors.black,
-                              //           fontWeight: FontWeight.w500,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              trailing: Text(timeStudent),
-                              minVerticalPadding: 20,
-                            ),
-                          );
-                        }),
-                      )
-                    : Center(
-                        child: Text(
-                        "No Student",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                            color: Colors.black26),
-                      )),
-              ),
-              SafeArea(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: (() {}),
-                        child: Text(
-                          "Edit",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: (() {}),
-                        child: Text(
-                          "Delete",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                side:
-                                    BorderSide(color: Colors.blue, width: 1.5),
-                                borderRadius: BorderRadius.circular(5)),
-                          ),
-                          backgroundColor: MaterialStateProperty.all(
-                            Colors.white,
-                          ),
-                          shadowColor: MaterialStateProperty.all(
-                            Colors.transparent,
-                          ),
-                          foregroundColor: MaterialStateProperty.all(
-                            Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Student Attendant',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
-              )
-            ],
-          ),
+                IconButton(
+                  onPressed: (() {
+                    Get.defaultDialog(
+                      titlePadding: EdgeInsets.only(
+                        top: 30,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
+                      ),
+                      confirmTextColor: Colors.white,
+                      title: "Add Student",
+                      onConfirm: () {
+                        controller.addStudent(arg['kode']);
+                      },
+                      onCancel: () {},
+                      content: Column(
+                        children: [
+                          TextField(
+                            controller: controller.controllerSiswa,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
+                              ),
+                              hintText: 'Student Name',
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          DropDownCostum(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                  icon: Icon(
+                    Icons.add_box_rounded,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Flexible(
+              child: arg['studentLength'] != 0
+                  ? ListView.builder(
+                      itemCount: arg['studentLength'],
+                      itemBuilder: ((context, index) {
+                        var student = arg['listStudent'][
+                            (arg['listStudent'] as Map<String, dynamic>)
+                                .keys
+                                .toList()[index]];
+
+                        // var nameStudent = arg['listStudent'][
+                        //     (arg['listStudent'] as Map<String, dynamic>)
+                        //         .keys
+                        //         .toList()[index]]['name'];
+
+                        // var timeStudent = arg['listStudent'][
+                        //     (arg['listStudent'] as Map<String, dynamic>)
+                        //         .keys
+                        //         .toList()[index]]['time'];
+
+                        return Card(
+                          margin: EdgeInsets.only(bottom: 20),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 2,
+                              color: controller.statusColor(student['status']),
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              student['name'],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 17,
+                              ),
+                            ),
+                            trailing: Text(
+                              controller.statusText(
+                                student['status'],
+                                student['time'],
+                              ),
+                            ),
+                            minVerticalPadding: 20,
+                          ),
+                        );
+                      }),
+                    )
+                  : Center(
+                      child: Text(
+                      "No Student",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Colors.black26),
+                    )),
+            ),
+            SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: (() {}),
+                      child: Text(
+                        "Edit",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: (() async {
+                        await controller.deleteSchedule(arg['kode']);
+                        Get.put(HomeGuruController()).update();
+                        Get.back();
+
+                        // print()
+                      }),
+                      child: Text(
+                        "Delete",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.blue, width: 1.5),
+                              borderRadius: BorderRadius.circular(5)),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.white,
+                        ),
+                        shadowColor: MaterialStateProperty.all(
+                          Colors.transparent,
+                        ),
+                        foregroundColor: MaterialStateProperty.all(
+                          Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class DropDownCostum extends StatelessWidget {
+  const DropDownCostum({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<DetailScheduleController>(
+      builder: ((controller) {
+        return DropdownButtonHideUnderline(
+          child: DropdownButton2(
+            isExpanded: true,
+            hint: Row(
+              children: [
+                Icon(
+                  Icons.list,
+                  size: 16,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Expanded(
+                  child: Text(
+                    controller.selectedValue ?? 'Select Item',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            items: controller.items
+                .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ))
+                .toList(),
+            value: controller.selectedValue,
+            onChanged: (value) {
+              controller.selected(value as String);
+            },
+            buttonStyleData: ButtonStyleData(
+              height: 50,
+              // width: Get.width,
+              padding: const EdgeInsets.only(left: 14, right: 14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: Colors.black26,
+                ),
+                color: Colors.blue,
+              ),
+              elevation: 2,
+            ),
+            iconStyleData: const IconStyleData(
+              icon: Icon(
+                Icons.arrow_forward_ios_outlined,
+              ),
+              iconSize: 14,
+              iconEnabledColor: Colors.white,
+              // iconDisabledColor: Colors.grey,
+            ),
+            dropdownStyleData: DropdownStyleData(
+              maxHeight: 200,
+              width: 200,
+              padding: null,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: Colors.blue,
+              ),
+              elevation: 8,
+              offset: const Offset(-20, 0),
+              scrollbarTheme: ScrollbarThemeData(
+                radius: const Radius.circular(40),
+                thickness: MaterialStateProperty.all<double>(6),
+                thumbVisibility: MaterialStateProperty.all<bool>(true),
+              ),
+            ),
+            menuItemStyleData: const MenuItemStyleData(
+              height: 40,
+              padding: EdgeInsets.only(left: 14, right: 14),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

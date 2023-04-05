@@ -14,8 +14,6 @@ class HomeGuruView extends GetView<HomeGuruController> {
   const HomeGuruView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var addC = Get.put(AddScheduleController());
-
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Stack(
@@ -54,15 +52,25 @@ class HomeGuruView extends GetView<HomeGuruController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Your Schedule",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Your Schedule",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 20),
+                          ),
+                          IconButton(
+                            onPressed: (() async {
+                              controller.update();
+                            }),
+                            icon: Icon(
+                              Icons.refresh,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GetBuilder(
+                      GetBuilder<HomeGuruController>(
                         init: HomeGuruController(),
                         builder: ((_) {
                           return FutureBuilder(
@@ -116,7 +124,7 @@ class HomeGuruView extends GetView<HomeGuruController> {
                                       ///
 
                                       return InkWell(
-                                        onTap: () {
+                                        onTap: () async {
                                           Get.toNamed(
                                             Routes.DETAIL_SCHEDULE,
                                             arguments: {
@@ -144,14 +152,15 @@ class HomeGuruView extends GetView<HomeGuruController> {
                                               : snap['date'],
                                         ),
                                       );
-                                    }
-                                        // }
-                                        ),
+                                    }),
                                   ),
                                 );
                               } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                return const Expanded(
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
                               }
                             },
                           );
