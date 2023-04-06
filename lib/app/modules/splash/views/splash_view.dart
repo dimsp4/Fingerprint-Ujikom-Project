@@ -1,5 +1,6 @@
 import 'package:fingerprint_test2/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:particles_flutter/particles_flutter.dart';
 
 import 'package:get/get.dart';

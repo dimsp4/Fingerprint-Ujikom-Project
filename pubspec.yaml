@@ -21,6 +21,8 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: 2.0.1
+  flutter_native_splash: ^2.2.18
+  flutter_launcher_icons: ^0.12.0
   flutter_test:
     sdk: flutter
 
@@ -51,3 +53,27 @@ flutter:
           weight: 800
         - asset: assets/fonts/Montserrat-Black.ttf
           weight: 900
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/icon/idn-logo.png"
+  android: true
+  ios: true
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/idn-logo.png"
+  # min_sdk_android: 21 # android min sdk min:16, default 21
+  # web:
+  #   generate: true
+  #   image_path: "path/to/image.png"
+  #   background_color: "#hexcode"
+  #   theme_color: "#hexcode"
+  # windows:
+  #   generate: true
+  #   image_path: "path/to/image.png"
+  #   icon_size: 48 # min:48, max:256, default: 48
+  # macos:
+  #   generate: true
+  #   image_path: "path/to/image.png"
