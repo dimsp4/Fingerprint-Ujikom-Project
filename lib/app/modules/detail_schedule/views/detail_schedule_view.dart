@@ -187,36 +187,55 @@ class DetailScheduleView extends GetView<DetailScheduleController> {
             ),
             SafeArea(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: (() {}),
-                      child: Text(
-                        "Edit",
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: ElevatedButton(
+                  //     onPressed: (() {}),
+                  //     child: Text(
+                  //       "Edit",
+                  //       style: TextStyle(fontWeight: FontWeight.w600),
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: 20,
+                  // ),
                   SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
+                    width: Get.width / 2.5,
                     child: ElevatedButton(
                       onPressed: (() async {
-                        await controller.deleteSchedule(arg['kode']);
-                        Get.put(HomeGuruController()).update();
-                        Get.back();
+                        await Get.defaultDialog(
+                          title: "Delete Schedule",
+                          middleText: "Are you sure want to delete?",
+                          titlePadding: const EdgeInsets.only(
+                            top: 20,
+                          ),
+                          textConfirm: "Yes",
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20,
+                          ),
+                          confirmTextColor: Colors.white,
+                          onConfirm: () async {
+                            await controller.deleteSchedule(arg['kode']);
+                            Get.put(HomeGuruController()).update();
+                            Get.back();
+                            Get.back();
+                          },
+                          onCancel: () {},
+                        );
 
                         // print()
                       }),
                       child: Text(
-                        "Delete",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        "Delete Schedule",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 1.5),
+                              side: BorderSide(color: Colors.red, width: 1.5),
                               borderRadius: BorderRadius.circular(5)),
                         ),
                         backgroundColor: MaterialStateProperty.all(
@@ -226,7 +245,7 @@ class DetailScheduleView extends GetView<DetailScheduleController> {
                           Colors.transparent,
                         ),
                         foregroundColor: MaterialStateProperty.all(
-                          Colors.blue,
+                          Colors.red[900],
                         ),
                       ),
                     ),

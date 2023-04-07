@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:get/get.dart';
+import 'package:particles_flutter/particles_flutter.dart';
 
 import '../controllers/home_guru_controller.dart';
 
@@ -18,6 +19,34 @@ class HomeGuruView extends GetView<HomeGuruController> {
       backgroundColor: Colors.blue,
       body: Stack(
         children: [
+          Center(
+            child: Container(
+              key: UniqueKey(),
+              child: Center(
+                child: CircularParticle(
+                  awayRadius: 80,
+                  numberOfParticles: 300,
+                  speedOfParticles: 0.5,
+                  height: Get.height,
+                  width: Get.width,
+                  onTapAnimation: true,
+                  particleColor: Colors.white.withOpacity(0.2),
+                  awayAnimationDuration: Duration(milliseconds: 200),
+                  maxParticleSize: 3,
+                  isRandSize: true,
+                  isRandomColor: true,
+                  randColorList: [
+                    Colors.white.withOpacity(0.2),
+                  ],
+                  awayAnimationCurve: Curves.ease,
+                  enableHover: true,
+                  hoverColor: Colors.white.withOpacity(0.2),
+                  hoverRadius: 100,
+                  connectDots: true,
+                ),
+              ),
+            ),
+          ),
           Column(
             children: [
               SizedBox(

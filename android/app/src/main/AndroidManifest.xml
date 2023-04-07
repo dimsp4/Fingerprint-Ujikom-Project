@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.finger.fingerprint_test2">
    <application
-        android:label="fingerprint_test2"
+        android:label="Attendance App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

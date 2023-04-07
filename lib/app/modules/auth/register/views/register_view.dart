@@ -1,4 +1,5 @@
 import 'package:double_back_to_close/double_back_to_close.dart';
+import 'package:fingerprint_test2/app/data/partials/animation_toggle.dart';
 import 'package:fingerprint_test2/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -33,12 +34,24 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                     ),
                     const SizedBox(
+                      height: 5,
+                    ),
+                    AnimatedToggle(
+                      values: ['Guru', 'Siswa'],
+                      onToggleCallback: (value) {
+                        // controller.toggleSwitch(value);
+                      },
+                      buttonColor: Colors.blueAccent,
+                      backgroundColor: Colors.black12,
+                      textColor: const Color(0xFFFFFFFF),
+                    ),
+                    const SizedBox(
                       height: 15,
                     ),
                     TextFormField(
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
-                          Icons.person,
+                          Icons.person_outlined,
                         ),
                         hintText: 'Username',
                       ),
